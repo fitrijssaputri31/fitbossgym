@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Member Dashboard - FitBoss Gym</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Oswald:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="container">
+            <a href="../index.html" class="logo">Fit<span>Boss</span></a>
+            <nav>
+                <ul>
+                    <li><a href="/member/dashboard.html">Dashboard</a></li>
+                    <li><a href="/member/riwayat-transaksi.html">Riwayat Transaksi</a></li>
+                    <li><a href="/member/profile.html">Profil</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <span class="welcome-user">Hi, Fitriani</span>
+                <a href="../logout.php" class="btn btn-primary">LOGOUT</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="section dashboard-section">
+            <div class="container">
+                <div class="member-card">
+                    <div class="qr-code">
+                        <img src="../images/placeholder-qr.png" alt="QR Code for Check-in">
+                    </div>
+                    <div class="member-info">
+                <h2 class="member-name">Fitriani Jayus Saputri</h2>
+                <p class="membership-type">Gym + Class Member</p>
+                <p class="expiry-date">Aktif hingga: 21 Oktober 2025</p>
+
+                <!-- Tambahan coach -->
+                <div class="coach-info">
+                  <p>Private Coach: <b id="coachName">Oom</b>
+                  <a
+                  href="https://wa.me/6281234567890?text=Halo%20Coach%20Oom%2C%20saya%20member%20FitBoss%20ingin%20konfirmasi%20jadwal."
+                  target="_blank"
+                  class="btn btn-secondary">
+                  Hubungi Coach
+                </a>
+                  </p>
+                </div>
+                <div class="member-actions">
+                <a href="payment.html" class="btn btn-primary renew-btn">Perpanjang Membership</a>
+              </div>
+
+              </div>
+
+                </div>
+                <div class="container">
+                    <h2 class="section-title">Kelas Aerobik</h2>
+
+                    <div id="aero-list" class="aero-grid" aria-live="polite">
+                    <!-- item akan di-render via JS -->
+                    </div>
+
+                    <p class="aero-note">
+                    *Kelas akan <b>dilaksanakan</b> jika minimal terdapat <b>5</b> member yang telah melakukan booking.
+                    </p>
+                </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p class="copyright">&copy; 2025 FitBoss Gym. Dibuat untuk Tugas Besar UNMA.</p>
+        </div>
+    </footer>
+<script>
+/* ====== DUMMY DATA 3 HARI ======
+   Struktur: { id, day, dateISO, time, className, coach, booked }
+*/
+const AERO_DUMMY = [
+  { id: "aero-1", day: "Selasa", dateISO: "2025-10-21", time: "18:00", className: "Pound Fit", coach: "Aina",  booked: 3 },
+  { id: "aero-2", day: "Kamis",  dateISO: "2025-10-23", time: "17:30", className: "Zumba",     coach: "Devi",  booked: 4 },
+  { id: "aero-3", day: "Sabtu",  dateISO: "2025-10-25", time: "08:00", className: "Power Step",coach: "Oom",   booked: 2 }
+];
+
+// ====== Penyimpanan booking user (localStorage) ======
+const LS_KEY = "fitbos_aero_bookings_v1";
+const getMyAero = () => JSON.parse(localStorage.getItem(LS_KEY) || "[]");
+const setMyAero = (rows) => localStorage.setItem(LS_KEY, JSON.stringify(rows));
+const isMine = (id) => !!getMyAero().find(x => x.id === id);
+
+// ====== Util format tanggal (id-ID) ======
+function formatTanggal(iso) {
+  try {
+    const d = new Date(iso + "T00:00:00");
+    return d.toLocaleDateString("id-ID", { day: "2-digit", month: "long", year: "numeric" });
+  } catch { return iso; }
+}
+
+// ====== Render list ======
+function renderAero() {
+  const wrap = document.getElementById("aero-list");
+  wrap.innerHTML = "";
+
+  AERO_DUMMY.forEach(row => {
+    const mine = isMine(row.id);
+    const card = document.createElement("div");
+    card.className = "aero-card";
+
+    card.innerHTML = `
+      <div class="aero-head">
+        <h3 class="aero-title">${row.className}</h3>
+        <span class="aero-coach">Coach ${row.coach}</span>
+      </div>
+
+    <div class="aero-meta">
+    <div class="aero-datetime">
+        ${row.day}, ${formatTanggal(row.dateISO)} • ${row.time} WIB
+    </div>
+    <div class="aero-booked">
+        Booked: <b id="bk-${row.id}">${row.booked + (mine ? 1 : 0)}</b>
+    </div>
+    </div>
+
+      <div class="aero-booking">
+        <div class="radio-group" role="radiogroup" aria-label="Pilih keikutsertaan">
+          <label><input type="radio" name="ikut-${row.id}" value="ya" ${mine ? "checked" : ""}> Ikut</label>
+          <label><input type="radio" name="ikut-${row.id}" value="tidak" ${mine ? "" : "checked"}> Tidak Ikut</label>
+        </div>
+
+        <button class="btn btn-book ${mine ? "btn-secondary" : "btn-primary"}"
+                data-id="${row.id}"
+                ${mine ? "" : "disabled"}>
+          ${mine ? "BATALKAN BOOKING" : "BOOKING"}
+        </button>
+      </div>
+    `;
+
+    wrap.appendChild(card);
+
+    // Elemen interaktif
+    const btn = card.querySelector(".btn-book");
+    const bookedEl = card.querySelector(`#bk-${row.id}`);
+    const radios = card.querySelectorAll(`input[name="ikut-${row.id}"]`);
+
+    // Ubah enable/disable tombol saat radio diganti
+    radios.forEach(r => {
+      r.addEventListener("change", () => {
+        const bookedNow = isMine(row.id);
+        if (r.value === "ya") {
+          btn.disabled = false;               // bisa booking atau batalkan
+        } else {
+          btn.disabled = bookedNow ? false : true; // kalau belum booking → nonaktif
+        }
+      });
+    });
+
+    // Klik tombol → toggle booking
+    btn.addEventListener("click", () => {
+      const bookedNow = isMine(row.id);
+      let mineRows = getMyAero();
+
+    if (bookedNow) {
+  // Batalkan
+    mineRows = mineRows.filter(x => x.id !== row.id);
+    setMyAero(mineRows);
+    bookedEl.textContent = row.booked;
+    btn.textContent = "BOOKING";
+    btn.classList.remove("btn-secondary");
+    btn.classList.add("btn-primary");
+
+  // ⬇️ tambahkan ini: pindahkan radio ke "Tidak Ikut" & matikan tombol
+    const notJoin = card.querySelector(`input[name="ikut-${row.id}"][value="tidak"]`);
+    const yesJoin = card.querySelector(`input[name="ikut-${row.id}"][value="ya"]`);
+    notJoin.checked = true;
+    yesJoin.checked = false;
+    btn.disabled = true; // tetap bisa aktif lagi kalau user pilih "Ikut"
+    } 
+    else {
+    // Booking
+    mineRows.push({ id: row.id, bookedAt: Date.now() });
+    setMyAero(mineRows);
+    bookedEl.textContent = row.booked + 1;
+    btn.textContent = "BATALKAN BOOKING";
+    btn.classList.remove("btn-primary");
+    btn.classList.add("btn-secondary");
+    btn.disabled = false;
+
+    // pastikan radio ke "Ikut"
+    card.querySelector(`input[name="ikut-${row.id}"][value="ya"]`).checked = true;
+    }
+
+    });
+  });
+}
+
+document.addEventListener("DOMContentLoaded", renderAero);
+</script>
+
+</body>
+</html>

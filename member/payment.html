@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pembayaran - FitBoss Gym</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Oswald:wght@700&display=swap" rel="stylesheet">
+</head>
+<body class="auth-page">
+
+    <div class="payment-container">
+        <a href="index.html" class="logo auth-logo">Fit<span>Boss</span></a>
+        
+        <form class="payment-card" action="../proses-pembayaran.php" method="POST">
+            <div class="order-summary">
+                <h3>Ringkasan Pesanan</h3>
+                <input type="hidden" name="tipe_paket" value="Gym + Class Membership (1 Bulan)">
+                <input type="hidden" name="durasi_bulan" value="1">
+                <input type="hidden" name="total_bayar" value="325000">
+                
+                <div class="summary-item">
+                    <span>Gym + Class Membership (1 Bulan)</span>
+                    <span>Rp 300.000</span>
+                </div>
+                <div class="summary-item">
+                    <span>Biaya Administrasi (Pendaftaran Baru)</span>
+                    <span>Rp 25.000</span>
+                </div>
+                <div class="summary-total">
+                    <span>Total Pembayaran</span>
+                    <span>Rp 325.000</span>
+                </div>
+            </div>
+
+            <div class="payment-methods">
+                <h3>Pilih Metode Pembayaran</h3>
+
+                <label for="transfer" class="method-option">
+                    <input type="radio" id="transfer" name="payment_method" value="transfer" checked>
+                    <span>Transfer Bank</span>
+                </label>
+                <div class="payment-details" id="transfer-details">
+                    <p>Silakan transfer ke rekening berikut:</p>
+                    <div class="account-info">
+                        <strong>Bank BRI</strong>
+                        <p>No. Rekening: <strong>430301017944538</strong></p>
+                        <p>Atas Nama: <strong>Fitriani Jayus Saputri</strong></p>
+                    </div>
+                    <p class="timer-warning">Selesaikan pembayaran dalam <strong>15 menit</strong> atau transaksi akan dibatalkan otomatis.</p>
+                </div>
+
+                <label for="qris" class="method-option">
+                    <input type="radio" id="qris" name="payment_method" value="qris">
+                    <span>QRIS</span>
+                </label>
+                <div class="payment-details" id="qris-details">
+                    <p>Silakan scan kode QR di bawah ini.</p>
+                    <img src="images/placeholder-qr.png" alt="QRIS Code" class="qris-image">
+                    <p class="timer-warning">Selesaikan pembayaran dalam <strong>15 menit</strong>.</p>
+                </div>
+
+                <label for="ditempat" class="method-option">
+                    <input type="radio" id="ditempat" name="payment_method" value="ditempat">
+                    <span>Bayar di Tempat</span>
+                </label>
+                <div class="payment-details" id="ditempat-details">
+                    <p class="timer-warning">Silakan selesaikan pembayaran di kasir FitBoss dalam <strong>48 jam</strong>.</p>
+                </div>
+
+                <button type="submit" class="btn btn-primary auth-btn">Konfirmasi Pembayaran</button>
+            </div>
+        </form>
+    </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const paymentMethods = document.querySelectorAll('input[name="payment_method"]');
+        const allDetails = document.querySelectorAll('.payment-details');
+
+        paymentMethods.forEach(method => {
+            method.addEventListener('change', function() {
+                allDetails.forEach(detail => {
+                    detail.style.display = 'none';
+                });
+
+                if (this.checked) {
+                    const selectedDetail = document.getElementById(this.value + '-details');
+                    if (selectedDetail) {
+                        selectedDetail.style.display = 'block';
+                    }
+                }
+            });
+        });
+    });
+</script>
+
+</body>
+</html>

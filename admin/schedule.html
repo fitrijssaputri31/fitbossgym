@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manajemen Jadwal - Admin FitBoss</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Oswald:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="admin-wrapper">
+        <aside class="sidebar">
+            <a href="../index.html" class="logo sidebar-logo">Fit<span>Boss</span></a>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="dashboard.html">Dashboard</a></li>
+                    <li><a href="member.html">Manajemen Member</a></li>
+                
+                    <li class="active"><a href="schedule.html">Manajemen Jadwal</a></li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="../index.html" class="logout-link">Logout</a>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="admin-header">
+                <h1>Manajemen Jadwal Kelas</h1>
+                <p>Tambah, ubah, atau hapus jadwal kelas mingguan.</p>
+            </header>
+
+            <div class="toolbar">
+                <a href="admin-add-schedule.html" class="btn btn-primary">+ Tambah Jadwal Baru</a>
+            </div>
+
+            <div class="table-container">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Hari</th>
+                            <th>Nama Kelas</th>
+                            <th>Nama Coach</th>
+                            <th>Waktu</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Senin</td>
+                            <td>Trampoline</td>
+                            <td>Coach Oom</td>
+                            <td>18:30</td>
+                            <td>
+                                <button class="btn btn-sm btn-secondary">Edit</button>
+                                <button class="btn btn-sm btn-danger">Hapus</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Selasa</td>
+                            <td>Pound Fit</td>
+                            <td>Coach Aina</td>
+                            <td>19:00</td>
+                            <td>
+                                <button class="btn btn-sm btn-secondary">Edit</button>
+                                <button class="btn btn-sm btn-danger">Hapus</button>
+                            </td>
+                        </tr>
+                         <tr>
+                            <td>Kamis</td>
+                            <td>Zumba</td>
+                            <td>Zin Devi</td>
+                            <td>18:30</td>
+                            <td>
+                                <button class="btn btn-sm btn-secondary">Edit</button>
+                                <button class="btn btn-sm btn-danger">Hapus</button>
+                            </td>
+                        </tr>
+                        </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+</body>
+</html>

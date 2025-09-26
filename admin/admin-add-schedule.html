@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tambah Jadwal - Admin FitBoss</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Oswald:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="admin-wrapper">
+        <aside class="sidebar">
+            <a href="../index.html" class="logo sidebar-logo">Fit<span>Boss</span></a>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="dashboard.html">Dashboard</a></li>
+                    <li><a href="member.html">Manajemen Member</a></li>
+                    <li class="active"><a href="schedule.html">Manajemen Jadwal</a></li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="../admin-login.html" class="logout-link">Logout</a>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="admin-header">
+                <h1>Tambah Jadwal Kelas Baru</h1>
+                <p>Isi formulir di bawah ini untuk menambahkan kelas baru ke dalam jadwal.</p>
+            </header>
+
+            <div class="form-card">
+                <form action="#" method="POST">
+                    <div class="input-group">
+                        <label for="hari">Hari</label>
+                        <select id="hari" name="hari" required>
+                            <option value="">-- Pilih Hari --</option>
+                            <option value="Senin">Senin</option>
+                            <option value="Selasa">Selasa</option>
+                            <option value="Rabu">Rabu</option>
+                            <option value="Kamis">Kamis</option>
+                            <option value="Jumat">Jumat</option>
+                            <option value="Sabtu">Sabtu</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="nama_kelas">Nama Kelas</label>
+                        <input type="text" id="nama_kelas" name="nama_kelas" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="nama_coach">Nama Coach</label>
+                        <input type="text" id="nama_coach" name="nama_coach" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="waktu">Waktu</label>
+                        <input type="time" id="waktu" name="waktu" required>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary auth-btn">Simpan Jadwal</button>
+                </form>
+            </div>
+        </main>
+    </div>
+
+</body>
+</html>

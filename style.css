@@ -1,0 +1,1688 @@
+:root {
+    --bg-color: #121212;
+    --primary-color: #9A2A2A;
+    /* Merah Wine */
+    --secondary-color: #333;
+    --text-color: #FFFFFF;
+    --text-muted: #CCCCCC;
+    --card-bg: #1E1E1E;
+    --font-heading: 'Oswald', sans-serif;
+    --font-body: 'Montserrat', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.section {
+    padding: 100px 0;
+}
+
+.section-dark {
+    background-color: #000;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 3rem;
+    font-family: var(--font-heading);
+    text-transform: uppercase;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 28px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    border: 2px solid transparent;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    border-color: var(--primary-color);
+}
+
+.btn-primary:hover {
+    background-color: transparent;
+    color: var(--primary-color);
+}
+
+.coach-info .btn-secondary {
+    padding: 5px 10px;
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: var(--text-color);
+    border-color: var(--secondary-color);
+}
+
+.btn-secondary:hover {
+    background-color: var(--secondary-color);
+}
+
+.btn-large {
+    font-size: 1.1rem;
+    padding: 15px 35px;
+}
+
+.navbar {
+    background-color: rgba(18, 18, 18, 0.8);
+    backdrop-filter: blur(10px);
+    padding: 15px 0;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    border-bottom: 1px solid var(--secondary-color);
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 2.2rem;
+    font-family: var(--font-heading);
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+.logo span {
+    color: var(--primary-color);
+}
+
+.navbar nav ul {
+    list-style: none;
+    display: flex;
+    gap: 40px;
+}
+
+.navbar nav a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-weight: 700;
+    transition: color 0.3s;
+}
+
+.navbar nav a:hover {
+    color: var(--primary-color);
+}
+
+.auth-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+.hero {
+    height: 120vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    background: url('images/hero-bg.jpg') no-repeat center center/cover;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+
+.hero h1 {
+    font-family: var(--font-heading);
+    font-size: 5rem;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    margin-bottom: 40px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.paket-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+
+.paket-card {
+    background-color: var(--card-bg);
+    padding: 40px;
+    border-radius: 10px;
+    text-align: center;
+    width: 360px;
+    border: 2px solid var(--secondary-color);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.paket-card:hover {
+    transform: translateY(-10px);
+}
+
+.paket-card.featured {
+    border-color: var(--primary-color);
+    transform: scale(1.05);
+    z-index: 5;
+}
+
+.badge {
+    position: absolute;
+    top: 15px;
+    right: -45px;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 5px 50px;
+    transform: rotate(45deg);
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.paket-card h3 {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    margin-bottom: 15px;
+}
+
+.paket-card .harga {
+    font-size: 3rem;
+    font-weight: 700;
+    font-family: var(--font-heading);
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.paket-card .harga span {
+    font-size: 1rem;
+    color: var(--text-muted);
+}
+
+.paket-card ul {
+    list-style: none;
+    text-align: left;
+    margin: 30px 0 40px 20px;
+}
+
+.paket-card ul li {
+    margin-bottom: 10px;
+}
+
+.jadwal-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.jadwal-card {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    height: 300px;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.4s ease;
+}
+
+.jadwal-card:hover {
+    transform: scale(1.05);
+}
+
+.jadwal-card .info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
+    color: white;
+}
+
+.jadwal-card .info h3 {
+    font-family: var(--font-heading);
+    color: var(--primary-color);
+}
+
+.testimoni-container {
+    display: flex;
+    gap: 30px;
+}
+
+.testimoni-card {
+    background-color: var(--card-bg);
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    border-left: 5px solid var(--primary-color);
+}
+
+.profile-pic {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 20px;
+}
+
+.quote {
+    font-style: italic;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+}
+
+.author {
+    font-weight: 700;
+    font-family: var(--font-heading);
+}
+
+.footer {
+    background-color: #000;
+    padding: 50px 0;
+    text-align: center;
+}
+
+.footer .logo {
+    margin-bottom: 20px;
+}
+
+.footer .alamat {
+    font-size: 1.1rem;
+    color: var(--text-color);
+    margin-bottom: 20px;
+}
+
+.footer .social-media {
+    margin-bottom: 20px;
+}
+
+.footer .social-media a {
+    color: var(--text-muted);
+    margin: 0 10px;
+    text-decoration: none;
+}
+
+.footer .copyright {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.auth-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding-top: 50px;
+    background-color: var(--bg-color);
+}
+
+.auth-container {
+    text-align: center;
+}
+
+.auth-logo {
+    margin-bottom: 40px;
+    display: inline-block;
+}
+
+.auth-card {
+    background-color: var(--card-bg);
+    padding: 40px;
+    border-radius: 10px;
+    width: 400px;
+    text-align: left;
+    border-top: 5px solid var(--primary-color);
+}
+
+.auth-card h2 {
+    font-family: var(--font-heading);
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2rem;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--bg-color);
+    border: 1px solid var(--secondary-color);
+    border-radius: 5px;
+    color: var(--text-color);
+    font-size: 1rem;
+}
+
+.auth-btn {
+    width: 100%;
+    padding: 15px;
+    margin-top: 10px;
+}
+
+.auth-switch {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.9rem;
+}
+
+.auth-switch a {
+    color: var(--primary-color);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+
+.modal-overlay {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-content {
+    position: relative;
+    background-color: var(--card-bg);
+    margin: 10% auto;
+    padding: 40px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 980px;
+    border-top: 5px solid var(--primary-color);
+}
+
+.close-modal {
+    color: var(--text-muted);
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    font-size: 28px;
+    font-weight: bold;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.close-modal:hover {
+    color: var(--primary-color);
+}
+
+.coach-container-modal {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 40px;
+}
+
+html {
+    scroll-padding-top: 90px;
+}
+
+.paket-container {
+    flex-wrap: wrap;
+}
+
+.paket-card {
+    max-width: 100%;
+}
+
+@media (max-width: 992px) {
+    .jadwal-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .hero h1 {
+        font-size: 3.2rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .jadwal-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .section {
+        padding: 70px 0;
+    }
+
+    .hero h1 {
+        font-size: 2.4rem;
+    }
+
+    .paket-card {
+        width: 100%;
+    }
+}
+
+:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+.navbar {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.coach-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--secondary-color);
+    border-radius: 10px;
+    padding: 20px;
+    width: 280px;
+    text-align: center;
+}
+
+.coach-pic {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.coach-card h3 {
+    font-family: var(--font-heading);
+    margin-bottom: 8px;
+}
+
+.coach-card .harga {
+    color: var(--primary-color);
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+
+
+/* Tambahan CSS untuk Halaman Dashboard */
+
+.welcome-user {
+    color: var(--text-muted);
+    font-weight: 700;
+    margin-right: 15px;
+}
+
+.dashboard-section {
+    padding-top: 100px;
+    /* Beri jarak dari navbar */
+    padding-bottom: 50px;
+}
+
+.member-card {
+    background-color: var(--card-bg);
+    border-radius: 15px;
+    display: flex;
+    /* <-- Kunci agar QR Code & Info sejajar */
+    align-items: center;
+    gap: 40px;
+    padding: 40px;
+    max-width: 800px;
+    margin: 0 auto;
+    border: 2px solid var(--secondary-color);
+}
+
+.qr-code img {
+    width: 200px;
+    height: 200px;
+    border-radius: 10px;
+}
+
+.member-info {
+    flex-grow: 1;
+}
+
+.member-name {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    color: var(--text-color);
+}
+
+.membership-type {
+    font-size: 1.2rem;
+    color: var(--primary-color);
+    font-weight: 700;
+    margin-top: -10px;
+}
+
+.expiry-date {
+    color: var(--text-muted);
+    margin-top: 20px;
+    font-size: 1rem;
+}
+
+.renew-btn {
+    margin-top: 20px;
+}
+
+.dashboard-menu {
+    display: flex;
+    /* <-- Kunci agar 3 menu di bawah sejajar */
+    justify-content: center;
+    gap: 30px;
+    margin-top: 80px;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.menu-item {
+    background-color: var(--card-bg);
+    padding: 30px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: var(--text-color);
+    flex-basis: 30%;
+    border-bottom: 4px solid var(--secondary-color);
+    transition: all 0.3s ease;
+}
+
+.menu-item:hover {
+    transform: translateY(-5px);
+    border-bottom-color: var(--primary-color);
+}
+
+.menu-item h3 {
+    font-family: var(--font-heading);
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.menu-item p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+/* ... (kode css sebelumnya) ... */
+
+/* Tambahan CSS untuk Halaman Pembayaran */
+
+.payment-container {
+    width: 100%;
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.payment-card {
+    display: flex;
+    flex-wrap: wrap; /* Agar responsif di layar kecil */
+    gap: 40px;
+    background-color: var(--card-bg);
+    padding: 40px;
+    border-radius: 10px;
+    text-align: left;
+    border-top: 5px solid var(--primary-color);
+}
+
+.order-summary,
+.payment-methods {
+    flex: 1; /* Membuat kedua kolom fleksibel */
+    min-width: 300px; /* Lebar minimum sebelum pindah baris */
+}
+
+.order-summary h3,
+.payment-methods h3 {
+    font-family: var(--font-heading);
+    margin-bottom: 25px;
+    font-size: 1.5rem;
+}
+
+.summary-item,
+.summary-total {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 0;
+    border-bottom: 1px solid var(--secondary-color);
+    font-size: 0.9rem;
+}
+
+.summary-total {
+    font-weight: 700;
+    font-size: 1.1rem;
+    border-bottom: none;
+    margin-top: 10px;
+}
+
+.method-option {
+    display: block;
+    padding: 15px;
+    border: 1px solid var(--secondary-color);
+    border-radius: 5px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.method-option:has(input:checked) {
+    border-color: var(--primary-color);
+    background-color: rgba(154, 42, 42, 0.1);
+}
+
+.method-option input {
+    margin-right: 10px;
+}
+
+.payment-details {
+    display: none; /* Sembunyikan secara default */
+    padding: 20px;
+    background-color: var(--bg-color);
+    border-radius: 5px;
+    margin-top: -5px;
+    margin-bottom: 20px;
+}
+
+.account-info {
+    margin: 15px 0;
+    padding: 15px;
+    background-color: #000;
+    border-radius: 5px;
+}
+
+.account-info p {
+    margin: 5px 0;
+}
+
+.timer-warning {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+.qris-image {
+    width: 150px;
+    height: 150px;
+    display: block;
+    margin: 15px auto;
+}
+
+/* ... (kode css sebelumnya) ... */
+
+/* Tambahan CSS untuk Halaman Konfirmasi Pembayaran */
+
+.confirmation-container {
+    width: 100%;
+    max-width: 700px;
+    margin: 50px auto;
+    text-align: center;
+}
+
+.confirmation-card {
+    background-color: var(--card-bg);
+    padding: 40px;
+    border-radius: 10px;
+    text-align: center;
+    border-top: 5px solid var(--primary-color);
+}
+
+.status-header .status-icon {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: 15px;
+}
+
+.status-header .status-title {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    color: var(--text-color);
+}
+
+.status-header .status-subtitle {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-bottom: 30px;
+}
+
+.transaction-summary {
+    text-align: left;
+    margin-bottom: 30px;
+    border-top: 1px solid var(--secondary-color);
+}
+
+.contact-info {
+    background-color: var(--bg-color);
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 30px;
+}
+
+.contact-info h4 {
+    margin-bottom: 10px;
+    color: var(--primary-color);
+}
+
+.contact-info p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+.contact-number {
+    margin-top: 10px;
+    font-size: 1rem !important;
+    color: var(--text-color) !important;
+}
+
+/* ... (kode css sebelumnya) ... */
+
+/* Tambahan CSS untuk Halaman Edit Profil */
+
+.form-card {
+    max-width: 700px;
+    margin: 0 auto;
+    background-color: var(--card-bg);
+    padding: 40px;
+    border-radius: 10px;
+    border-top: 5px solid var(--primary-color);
+}
+
+.form-section {
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--secondary-color);
+}
+
+.form-section:last-of-type {
+    border-bottom: none;
+    margin-bottom: 20px;
+}
+
+.form-section h3 {
+    font-family: var(--font-heading);
+    margin-bottom: 25px;
+    font-size: 1.5rem;
+}
+
+.input-group small {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 5px;
+}
+
+.input-group input:disabled {
+    background-color: var(--secondary-color);
+    cursor: not-allowed;
+}
+
+/* ===== Compact horizontal layout untuk Kelas Aerobik ===== */
+
+/* ===== Layout Kelas Aerobik versi rapi ===== */
+.aero-card {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr auto;
+    /* kiri: nama/coach | tengah: tgl/jam/booked | kanan: radio+tombol */
+    gap: 16px 24px;
+    padding: 18px 22px;
+    background: var(--card-bg, #161616);
+    border: 1px solid var(--secondary-color);
+    border-radius: 14px;
+    margin: 14px 0;
+    /* jarak antar card */
+}
+
+/* Kiri */
+.aero-head {
+    display: block;
+}
+
+.aero-title {
+    margin: 0 0 4px;
+    font-family: var(--font-heading);
+    color: var(--primary-color);
+}
+
+.aero-coach {
+    color: var(--text-muted);
+    font-size: .95rem;
+}
+
+/* Tengah */
+.aero-meta {
+    display: flex;
+    flex-direction: column;
+    /* 2 baris: datetime + booked */
+    align-items: flex-start;
+    gap: 4px;
+    font-size: .95rem;
+    color: var(--text-color);
+}
+
+.aero-datetime {
+    font-weight: 500;
+    white-space: nowrap;
+    /* biar tetap satu baris */
+}
+
+.aero-booked {
+    font-size: .9rem;
+    color: var(--text-muted);
+}
+
+.aero-booked {
+    font-size: .9rem;
+}
+
+/* Kanan */
+.aero-booking {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+.radio-group {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-book {
+    width: 200px;
+    /* konsisten untuk BOOKING / BATALKAN */
+    text-align: center;
+}
+
+/* Responsif */
+@media (max-width: 992px) {
+    .aero-card {
+        grid-template-columns: 1fr;
+        align-items: flex-start;
+    }
+
+    .aero-booking {
+        justify-content: flex-start;
+        flex-wrap: wrap;
+    }
+
+    .btn-book {
+        width: 100%;
+    }
+}
+
+/* ===== Profil Member (edit-profile.html) ===== */
+.profile-wrap {
+    max-width: 920px;
+    margin: 40px auto 40px;
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    /* form | QR */
+    gap: 28px;
+    align-items: start;
+}
+
+.profile-card {
+    background: var(--card-bg);
+    border: 1px solid var(--secondary-color);
+    border-radius: 12px;
+    padding: 22px;
+}
+
+.subhead {
+    font-size: 1rem;
+    margin: 16px 0 8px;
+    color: var(--text-color);
+}
+
+.mt-12 {
+    margin-top: 12px;
+}
+
+.mt-16 {
+    margin-top: 16px;
+}
+
+.mt-10 {
+    margin-top: 10px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 6px;
+    color: var(--text-color);
+    font-weight: 600;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: transparent;
+    color: var(--text-color);
+}
+
+.input-group input:disabled {
+    opacity: .7;
+    cursor: not-allowed;
+}
+
+.action-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-top: 14px;
+}
+
+.msg {
+    display: none;
+    padding: 10px 12px;
+    border-radius: 8px;
+}
+
+.msg.success {
+    background: rgba(107, 213, 139, 0.08);
+    color: #6bd58b;
+    border: 1px solid rgba(107, 213, 139, 0.12);
+}
+
+.msg.error {
+    background: rgba(255, 100, 100, 0.06);
+    color: #ff7a7a;
+    border: 1px solid rgba(255, 100, 100, 0.08);
+}
+
+.qr-card {
+    text-align: center;
+    padding: 18px;
+}
+
+.qr-image {
+    width: 200px;
+    height: 200px;
+    border-radius: 6px;
+    border: 1px solid var(--secondary-color);
+    background: #fff;
+    display: block;
+    margin: 6px auto 12px;
+}
+
+.qr-actions {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 8px;
+}
+
+.small-note {
+    color: var(--text-muted);
+    font-size: .92rem;
+    margin-top: 10px;
+}
+
+@media (max-width: 992px) {
+    .profile-wrap {
+        grid-template-columns: 1fr;
+        margin-top: 80px;
+        padding: 0 18px;
+    }
+
+    .qr-image {
+        width: 180px;
+        height: 180px;
+    }
+
+    .action-row {
+        flex-wrap: wrap;
+    }
+}
+
+/* ===== Tweak tampilan halaman Profil ===== */
+.profile-wrap {
+    max-width: 1100px;
+    /* sedikit lebih lebar biar lega */
+    margin: 40px auto 40px;
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    /* form | QR */
+    gap: 28px;
+    align-items: start;
+}
+
+.profile-wrap .form-card {
+    max-width: 100%;
+    /* biar mengikuti grid */
+    margin: 0;
+    /* hilangkan auto-center */
+    border-top: none;
+    /* optional: kalau tidak mau strip merah di atas */
+    padding: 24px;
+    /* seragam dengan dashboard */
+}
+
+.form-card {
+    background: var(--card-bg);
+    border: 1px solid var(--secondary-color);
+    border-radius: 12px;
+    padding: 24px;
+}
+
+/* Judul khusus profil (lebih kecil dari .section-title umum) */
+.profile-title {
+    font-family: var(--font-heading);
+    color: var(--primary-color);
+    font-size: 1.6rem;
+    letter-spacing: .5px;
+    margin: 0 0 12px;
+}
+
+.form-card h3 {
+    font-family: var(--font-heading);
+    color: var(--primary-color);
+    font-size: 1.1rem;
+    margin: 14px 0 10px;
+}
+
+.input-group {
+    margin-top: 12px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 6px;
+    color: var(--text-color);
+    font-weight: 600;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: transparent;
+    color: var(--text-color);
+    line-height: 1.25;
+}
+
+.input-group input:disabled {
+    opacity: .7;
+    cursor: not-allowed;
+}
+
+.action-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-top: 16px;
+}
+
+/* Panel QR */
+.qr-card {
+    text-align: center;
+}
+
+.qr-card img {
+    width: 200px;
+    height: 200px;
+    background: #fff;
+    border: 1px solid var(--secondary-color);
+    border-radius: 8px;
+    display: block;
+    margin: 8px auto 12px;
+}
+
+.small-note {
+    color: var(--text-muted);
+    font-size: .9rem;
+    margin-top: 10px;
+}
+
+/* Responsif */
+@media (max-width: 992px) {
+    .profile-wrap {
+        grid-template-columns: 1fr;
+        margin-top: 40px;
+        padding: 0 18px;
+    }
+
+    .qr-card img {
+        width: 180px;
+        height: 180px;
+    }
+
+    .action-row {
+        flex-wrap: wrap;
+    }
+}
+
+/* ============================ */
+/* CSS UNTUK HALAMAN ADMIN    */
+/* ============================ */
+
+.admin-wrapper {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar Styling */
+.sidebar {
+    flex-basis: 250px;
+    /* Lebar sidebar */
+    flex-shrink: 0;
+    background-color: var(--card-bg);
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-logo {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.sidebar-nav ul {
+    list-style: none;
+}
+
+.sidebar-nav li a {
+    display: block;
+    color: var(--text-muted);
+    text-decoration: none;
+    padding: 15px;
+    border-radius: 5px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    transition: all 0.3s ease;
+}
+
+.sidebar-nav li a:hover {
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+}
+
+.sidebar-nav li.active a {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+}
+
+.sidebar-footer {
+    margin-top: auto;
+    text-align: left;
+    /* Mendorong logout ke bawah */
+}
+
+.logout-link {
+    display: block;
+    text-align: center;
+    color: var(--text-muted);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+/* Main Content Styling */
+.main-content {
+    flex-grow: 1;
+    padding: 40px;
+    background-color: var(--bg-color);
+}
+
+.admin-header {
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid var(--secondary-color);
+}
+
+.admin-header h1 {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+}
+
+/* Stat Cards Styling */
+.stat-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.stat-card {
+    background-color: var(--card-bg);
+    padding: 25px;
+    border-radius: 10px;
+    border-left: 5px solid var(--secondary-color);
+}
+
+.stat-card h4 {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+}
+
+.stat-card .stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    font-family: var(--font-heading);
+}
+
+.stat-card.pending {
+    border-left-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.content-placeholder {
+    margin-top: 40px;
+    padding: 40px;
+    background-color: var(--card-bg);
+    border-radius: 10px;
+    text-align: center;
+    color: var(--text-muted);
+}
+
+/* ... (kode css sebelumnya) ... */
+
+/* Tambahan CSS untuk Halaman Manajemen (Tabel, dll) */
+
+.toolbar {
+    margin-bottom: 30px;
+}
+
+.search-bar input {
+    width: 100%;
+    max-width: 400px;
+    padding: 12px;
+    background-color: var(--card-bg);
+    border: 1px solid var(--secondary-color);
+    border-radius: 5px;
+    color: var(--text-color);
+    font-size: 1rem;
+}
+
+.table-container {
+    background-color: var(--card-bg);
+    border-radius: 10px;
+    overflow-x: auto;
+    /* Agar bisa di-scroll horizontal jika tabel terlalu lebar */
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    /* Menghilangkan jarak antar border */
+}
+
+.admin-table th,
+.admin-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--secondary-color);
+}
+
+.admin-table th {
+    font-family: var(--font-heading);
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+.admin-table tbody tr:hover {
+    background-color: var(--secondary-color);
+}
+
+.status {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.status.active {
+    background-color: rgba(3, 172, 19, 0.1);
+    color: #03ac13;
+}
+
+.status.expired {
+    background-color: rgba(154, 42, 42, 0.1);
+    color: var(--primary-color);
+}
+
+.btn-sm {
+    padding: 8px 15px;
+    font-size: 0.8rem;
+}
+
+/* ... (kode css sebelumnya) ... */
+
+/* Tambahan CSS untuk tombol Aksi */
+.btn-danger {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    border-color: var(--primary-color);
+}
+
+.btn-danger:hover {
+    background-color: #7d2424;
+    /* Warna merah lebih gelap */
+    border-color: #7d2424;
+}
+
+/* ... (kode css sebelumnya) ... */
+
+/* Tambahan CSS untuk tombol Aksi Konfirmasi */
+.btn-success {
+    background-color: #03ac13;
+    border-color: #03ac13;
+    color: var(--text-color);
+}
+
+.btn-success:hover {
+    background-color: #028a0f;
+    /* Warna hijau lebih gelap */
+    border-color: #028a0f;
+}
+
+/* Tambahan CSS untuk Modal Detail Member Admin */
+/* CSS FINAL UNTUK MODAL ADMIN */
+.admin-member-card {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.qr-code-admin {
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.qr-code-admin img {
+    width: 150px;
+    height: 150px;
+    border-radius: 5px;
+    display: block;
+}
+
+.qr-code-admin p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-top: 10px;
+}
+
+.member-info-admin h3 {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    margin-bottom: 15px;
+}
+
+.member-info-admin p {
+    margin-bottom: 10px;
+    font-size: 1rem;
+}
+
+.confirmation-section {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid var(--secondary-color);
+}
+
+.confirmation-section h4 {
+    margin-bottom: 15px;
+    color: var(--primary-color);
+}
+
+.proof-link {
+    color: var(--primary-color);
+    font-weight: 700;
+    text-decoration: underline;
+    font-size: 0.9rem;
+}
+
+.proof-link:hover {
+    color: #ff4747;
+}
+
+.modal-actions {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid var(--secondary-color);
+    display: flex;
+    justify-content: flex-end;
+    /* Tombol di pojok kanan */
+    gap: 15px;
+}
+
+
+/* Tambahan CSS untuk Modal Detail Member Admin (Revisi) */
+.admin-member-card {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.qr-code-admin {
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.qr-code-admin img {
+    width: 150px;
+    height: 150px;
+    border-radius: 5px;
+    display: block;
+}
+
+.qr-code-admin p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-top: 10px;
+}
+
+.member-info-admin h3 {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    margin-bottom: 15px;
+}
+
+.member-info-admin p {
+    margin-bottom: 10px;
+    font-size: 1rem;
+}
+
+.confirmation-section {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid var(--secondary-color);
+}
+
+.confirmation-section h4 {
+    margin-bottom: 15px;
+    color: var(--primary-color);
+}
+
+.modal-actions {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid var(--secondary-color);
+    display: flex;
+    justify-content: flex-end;
+    /* Tombol di pojok kanan */
+    gap: 15px;
+}
+
+/* ... (kode css sebelumnya) ... */
+
+
+/* Ganti .proof-of-payment dengan ini */
+.proof-link {
+    color: var(--primary-color);
+    font-weight: 700;
+    text-decoration: underline;
+    font-size: 0.9rem;
+}
+
+.proof-link:hover {
+    color: #ff4747;
+}
+
+/* ... (kode css sebelumnya) ... */
+
+/* Tambahan CSS untuk Dropdown/Select */
+.input-group select {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--bg-color);
+    border: 1px solid var(--secondary-color);
+    border-radius: 5px;
+    color: var(--text-color);
+    font-size: 1rem;
+    font-family: var(--font-body); /* Agar font sama */
+}
+/* ... (kode css sebelumnya) ... */
+
+/* Tambahan CSS untuk Halaman Status (Sukses/Gagal) */
+
+.status-card-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.status-card {
+    background-color: var(--card-bg);
+    padding: 50px;
+    border-radius: 10px;
+    text-align: center;
+    max-width: 500px;
+    border-top: 5px solid var(--secondary-color);
+}
+
+.status-card .status-icon {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: 15px;
+}
+
+.status-card .status-icon.success {
+    /* Tidak perlu style khusus, emoji sudah hijau */
+}
+
+.status-card .status-icon.error {
+    /* Tidak perlu style khusus, emoji sudah merah */
+}
+
+.status-card .status-title {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.status-card .status-title.success {
+    color: #03ac13; /* Hijau */
+}
+
+.status-card .status-title.error {
+    color: var(--primary-color); /* Merah */
+}
+
+.status-card .status-subtitle {
+    color: var(--text-muted);
+    margin-bottom: 30px;
+}
+
+.status-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+/* ... (kode css sebelumnya) ... */
+
+/* Tambahan CSS untuk Seksi Fasilitas */
+
+.fasilitas-grid {
+    display: flex; /* <-- Ganti dari grid menjadi flex */
+    flex-wrap: wrap; /* <-- Tambahkan ini agar bisa pindah baris */
+    justify-content: center; /* <-- Tambahkan ini agar rapi di tengah */
+    gap: 30px;
+    text-align: center;
+}
+
+.fasilitas-card {
+    flex-basis: 200px;
+    background-color: var(--card-bg);
+    padding: 30px 20px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    border: 2px solid var(--secondary-color);
+}
+
+.fasilitas-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary-color);
+}
+
+.fasilitas-card .icon {
+    font-size: 3rem; /* Ukuran ikon */
+    margin-bottom: 15px;
+    color: var(--primary-color);
+}
+
+.fasilitas-card h3 {
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    font-weight: 700;
+}

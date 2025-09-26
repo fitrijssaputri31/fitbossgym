@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Profil - FitBoss Gym</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Oswald:wght@700&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header class="navbar">
+        <div class="container">
+            <a href="../index.html" class="logo">Fit<span>Boss</span></a>
+            <nav>
+                <ul>
+                    <li><a href="/member/dashboard.html">Dashboard</a></li>
+                    <li><a href="/member/riwayat-transaksi.html">Riwayat Transaksi</a></li>
+                    <li><a href="/member/profile.html">Profil</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <span class="welcome-user">Hi, Fitriani</span>
+                <a href="../logout.php" class="btn btn-primary">LOGOUT</a>
+            </div>
+        </div>
+    </header>
+
+  <main>
+    <section class="section dashboard-section">
+      <div class="profile-wrap">
+
+        <!-- FORM PROFIL -->
+        <div class="form-card">
+          <h2 class="section-title">Edit Profil</h2>
+
+          <form id="profileForm" autocomplete="off">
+            <div class="form-section">
+              <h3>Informasi Pribadi</h3>
+
+              <div class="input-group">
+                <label for="fullname">Nama Lengkap</label>
+                <input type="text" id="fullname" name="fullname" required />
+              </div>
+
+              <div class="input-group">
+                <label for="email">Email (tidak dapat diubah)</label>
+                <input type="email" id="email" name="email" disabled />
+                <small>Email tidak bisa diubah.</small>
+              </div>
+
+              <div class="input-group">
+                <label for="phone">Nomor Telepon</label>
+                <input type="tel" id="phone" name="phone" required />
+              </div>
+            </div>
+
+            <div class="form-section">
+              <h3>Ubah Password</h3>
+              <div class="input-group">
+                <label for="new_password">Password Baru (opsional)</label>
+                <input type="password" id="new_password" name="new_password" placeholder="Kosongkan bila tidak ingin ganti"/>
+              </div>
+              <div class="input-group">
+                <label for="confirm_password">Konfirmasi Password Baru</label>
+                <input type="password" id="confirm_password" name="confirm_password" placeholder="Ulangi password baru"/>
+              </div>
+            </div>
+
+            <div class="action-row">
+              <button type="submit" class="btn btn-primary auth-btn">Simpan Perubahan</button>
+              <button id="resetBtn" type="button" class="btn btn-secondary auth-btn">Reset</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- QR DUMMY -->
+        <div class="form-card qr-card">
+          <h3>QR Member</h3>
+          <img src="../images/placeholder-qr.png" alt="QR Member"/>
+          <a class="btn btn-secondary" href="../images/placeholder-qr.png" download="qr-member.png">Download QR</a>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const KEY = "fitbos_profile_v1";
+
+    const form = document.getElementById("profileForm");
+    const fullnameEl = document.getElementById("fullname");
+    const emailEl = document.getElementById("email");
+    const phoneEl = document.getElementById("phone");
+    const newPwdEl = document.getElementById("new_password");
+    const confPwdEl = document.getElementById("confirm_password");
+    const resetBtn = document.getElementById("resetBtn");
+
+    function loadProfile() {
+      const raw = localStorage.getItem(KEY);
+      if (!raw) {
+        const seed = {
+          fullname: "Fitriani Jayus Saputri",
+          email: "fitriani.js@example.com",
+          phone: "081234567890",
+          updatedAt: Date.now()
+        };
+        localStorage.setItem(KEY, JSON.stringify(seed));
+        fullnameEl.value = seed.fullname;
+        emailEl.value = seed.email;
+        phoneEl.value = seed.phone;
+        return;
+      }
+      try {
+        const p = JSON.parse(raw);
+        fullnameEl.value = p.fullname || "";
+        emailEl.value   = p.email   || "";
+        phoneEl.value   = p.phone   || "";
+      } catch(e){}
+    }
+
+    function saveProfile(e){
+      e.preventDefault();
+      const p = (newPwdEl.value || "").trim();
+      const pc = (confPwdEl.value || "").trim();
+      if ((p || pc) && p !== pc) {
+        alert("Password dan konfirmasi tidak cocok.");
+        return;
+      }
+      const before = JSON.parse(localStorage.getItem(KEY) || "{}");
+      const profile = {
+        fullname: fullnameEl.value.trim(),
+        email: before.email || emailEl.value.trim(),
+        phone: phoneEl.value.trim(),
+        password: p ? p : before.password,
+        updatedAt: Date.now()
+      };
+      localStorage.setItem(KEY, JSON.stringify(profile));
+      newPwdEl.value = "";
+      confPwdEl.value = "";
+      alert("Perubahan tersimpan (demo lokal).");
+    }
+
+    function resetForm(){
+      loadProfile();
+      newPwdEl.value = "";
+      confPwdEl.value = "";
+    }
+
+    document.addEventListener("DOMContentLoaded", loadProfile);
+    form.addEventListener("submit", saveProfile);
+    resetBtn.addEventListener("click", (ev)=>{ ev.preventDefault(); resetForm(); });
+  </script>
+</body>
+</html>
