@@ -2,15 +2,33 @@
 session_start();
 require '../koneksi.php';
 
-// Cek apakah user sudah login dan apakah rolenya admin
+// Cek keamanan: pastikan hanya admin yang bisa mengakses halaman ini
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
-    // Jika tidak, tendang ke halaman login
     header("Location: ../admin-login.html");
     exit();
 }
 
-// Ambil semua data member dari database
-$sql = "SELECT * FROM customers ORDER BY id DESC";
+// Query SQL BARU: Menggabungkan tabel customers dan memberships
+// Query ini mengambil data customer beserta data membership TERBARU mereka.
+$sql = "SELECT 
+            c.id, 
+            c.nama_lengkap, 
+            c.email, 
+            m.status AS status_membership, 
+            m.tanggal_berakhir 
+        FROM 
+            customers c
+        LEFT JOIN 
+            (SELECT * FROM memberships ORDER BY tanggal_mulai DESC) m 
+        ON 
+            c.id = m.customer_id
+        WHERE
+            c.role = 'member'
+        GROUP BY 
+            c.id
+        ORDER BY 
+            c.id DESC";
+
 $result = mysqli_query($koneksi, $sql);
 ?>
 
@@ -19,37 +37,14 @@ $result = mysqli_query($koneksi, $sql);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manajemen Member - Admin FitBoss</title>
+    <title>Admin Dashboard - FitBoss Gym</title>
     <link rel="stylesheet" href="../style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Oswald:wght@700&display=swap" rel="stylesheet">
 </head>
-<body>
-
     <div class="admin-wrapper">
-        <aside class="sidebar">
-    <a href="../index.html" class="logo sidebar-logo">Fit<span>Boss</span></a>
-    <nav class="sidebar-nav">
-        <ul>
-            <li class="<?php echo basename($_SERVER['PHP_SELF']) == 'dashboard.php' ? 'active' : ''; ?>">
-                <a href="dashboard.php">Dashboard</a>
-            </li>
-            <li class="<?php echo basename($_SERVER['PHP_SELF']) == 'member.php' ? 'active' : ''; ?>">
-                <a href="member.php">Manajemen Member</a>
-            </li>
-            <li class="<?php echo basename($_SERVER['PHP_SELF']) == 'schedule.php' ? 'active' : ''; ?>">
-                <a href="schedule.php">Manajemen Jadwal</a>
-            </li>
-            <li class="<?php echo basename($_SERVER['PHP_SELF']) == 'payments.php' ? 'active' : ''; ?>">
-                <a href="payments.php">Konfirmasi Pembayaran</a>
-            </li>
-        </ul>
-    </nav>
-    <div class="sidebar-footer">
-        <a href="../logout.php" class="logout-link">Logout</a>
-    </div>
-</aside>
+        <?php include 'sidebar.php'; ?>
 
         <main class="main-content">
             <header class="admin-header">
@@ -77,23 +72,48 @@ $result = mysqli_query($koneksi, $sql);
                     </thead>
                     <tbody>
     <?php
-    // Looping untuk menampilkan setiap baris data member
-    while ($member = mysqli_fetch_assoc($result)) {
+    if (mysqli_num_rows($result) > 0) {
+        while ($member = mysqli_fetch_assoc($result)) {
+            // Ambil status dan ubah menjadi huruf kecil untuk perbandingan
+            $status = $member['status_membership'];
+            $status_lower = strtolower($status ?? ''); // <-- Ubah ke huruf kecil
+            
+            $status_class = 'expired'; // Default-nya merah
+            
+            // Periksa status yang sudah diubah ke huruf kecil
+            if ($status_lower == 'aktif' || $status_lower == 'menunggu konfirmasi') {
+                $status_class = 'active'; // Ubah jadi hijau
+            }
     ?>
         <tr>
             <td>FIT-<?php echo $member['id']; ?></td>
             <td><?php echo htmlspecialchars($member['nama_lengkap']); ?></td>
             <td><?php echo htmlspecialchars($member['email']); ?></td>
             <td>
-                <span class="status active">Aktif</span>
+                <?php if ($status): ?>
+                    <span class="status <?php echo $status_class; ?>">
+                        <?php echo htmlspecialchars($status); ?>
+                    </span>
+                <?php else: ?>
+                    <span>-</span>
+                <?php endif; ?>
             </td>
             <td>
-                21 Oktober 2025
+                <?php 
+                    if ($member['tanggal_berakhir']) {
+                        echo date('d F Y', strtotime($member['tanggal_berakhir']));
+                    } else {
+                        echo '-';
+                    }
+                ?>
             </td>
             <td><button class="btn btn-sm btn-secondary btn-detail">Lihat Detail</button></td>
         </tr>
     <?php
-    } // Akhir dari loop while
+        } // Akhir dari loop while
+    } else {
+        echo "<tr><td colspan='6' style='text-align:center;'>Tidak ada data member.</td></tr>";
+    }
     ?>
 </tbody>
                 </table>
@@ -135,10 +155,7 @@ $result = mysqli_query($koneksi, $sql);
             </div>
         </div>
     </div>
-</div>
-</div>
-
-    <script>
+   <script>
     // Script untuk Modal Detail Member di Halaman Admin
     const detailModal = document.getElementById('detail-modal');
     const detailButtons = document.querySelectorAll('.btn-detail'); // Kita akan gunakan class
@@ -159,7 +176,8 @@ $result = mysqli_query($koneksi, $sql);
 
     closeDetailModalBtn.addEventListener('click', closeDetailModal);
     detailOverlay.addEventListener('click', closeDetailModal);
-</script>
+    </script>
 
+    
 </body>
 </html>

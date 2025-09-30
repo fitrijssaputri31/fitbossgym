@@ -764,72 +764,7 @@ html {
 
 /* ... (kode css sebelumnya) ... */
 
-/* Tambahan CSS untuk Halaman Konfirmasi Pembayaran */
 
-.confirmation-container {
-    width: 100%;
-    max-width: 700px;
-    margin: 50px auto;
-    text-align: center;
-}
-
-.confirmation-card {
-    background-color: var(--card-bg);
-    padding: 40px;
-    border-radius: 10px;
-    text-align: center;
-    border-top: 5px solid var(--primary-color);
-}
-
-.status-header .status-icon {
-    font-size: 3rem;
-    display: block;
-    margin-bottom: 15px;
-}
-
-.status-header .status-title {
-    font-family: var(--font-heading);
-    font-size: 2rem;
-    color: var(--text-color);
-}
-
-.status-header .status-subtitle {
-    font-size: 1rem;
-    color: var(--text-muted);
-    margin-bottom: 30px;
-}
-
-.transaction-summary {
-    text-align: left;
-    margin-bottom: 30px;
-    border-top: 1px solid var(--secondary-color);
-}
-
-.contact-info {
-    background-color: var(--bg-color);
-    padding: 20px;
-    border-radius: 5px;
-    margin-bottom: 30px;
-}
-
-.contact-info h4 {
-    margin-bottom: 10px;
-    color: var(--primary-color);
-}
-
-.contact-info p {
-    font-size: 0.9rem;
-    color: var(--text-muted);
-    line-height: 1.5;
-}
-
-.contact-number {
-    margin-top: 10px;
-    font-size: 1rem !important;
-    color: var(--text-color) !important;
-}
-
-/* ... (kode css sebelumnya) ... */
 
 /* Tambahan CSS untuk Halaman Edit Profil */
 
