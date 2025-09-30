@@ -2,26 +2,28 @@
 // Selalu mulai file PHP yang menggunakan session dengan session_start()
 session_start();
 
-// 1. Panggil file koneksi
+// Panggil file koneksi
 require 'koneksi.php';
 
-// 2. Ambil data dari form login
+// Ambil data dari form login
 $email = $_POST['email'];
 $password = $_POST['password'];
 
-// 3. Validasi sederhana
+// Validasi sederhana
 if (empty($email) || empty($password)) {
-    die("Error: Email dan password harus diisi!");
+    // Arahkan ke halaman gagal jika ada field kosong
+    header("Location: gagal.html");
+    exit();
 }
 
-// 4. Siapkan query untuk mencari customer berdasarkan email
+// Siapkan query untuk mencari customer berdasarkan email
 $sql = "SELECT * FROM customers WHERE email = ?";
 $stmt = mysqli_prepare($koneksi, $sql);
 mysqli_stmt_bind_param($stmt, "s", $email);
 mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
 
-// 5. Cek apakah customer ditemukan dan verifikasi password
+// Cek apakah customer ditemukan dan verifikasi password
 if ($customer = mysqli_fetch_assoc($result)) {
     // Customer dengan email tersebut ditemukan, sekarang verifikasi passwordnya
     if (password_verify($password, $customer['password'])) {
@@ -30,21 +32,26 @@ if ($customer = mysqli_fetch_assoc($result)) {
         // Simpan informasi penting customer ke dalam session
         $_SESSION['customer_id'] = $customer['id'];
         $_SESSION['nama_lengkap'] = $customer['nama_lengkap'];
+        $_SESSION['role'] = $customer['role']; // <-- SIMPAN PERAN (ROLE) KE SESSION
         
-        // Arahkan ke halaman dashboard member
-        header("Location: member/dashboard.html"); // Sesuaikan dengan lokasi folder Anda
+        // **LOGIKA PENGALIHAN BERDASARKAN PERAN (ROLE)**
+        if ($customer['role'] == 'admin') {
+            // Jika perannya admin, arahkan ke dashboard admin
+            header("Location: admin/dashboard.php");
+        } else {
+            // Jika perannya member, arahkan ke dashboard member
+            header("Location: member/dashboard.html");
+        }
         exit();
 
     } else {
-        // Jika password salah
-        echo "Login gagal! Password salah.";
-        header("refresh:3;url=login.html");
+        // Jika password salah, arahkan ke halaman gagal
+        header("Location: gagal.html");
         exit();
     }
 } else {
-    // Jika email tidak ditemukan
-    echo "Login gagal! Email tidak terdaftar.";
-    header("refresh:3;url=login.html");
+    // Jika email tidak ditemukan, arahkan ke halaman gagal
+    header("Location: gagal.html");
     exit();
 }
 

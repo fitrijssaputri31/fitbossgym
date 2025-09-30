@@ -1,3 +1,19 @@
+<?php
+session_start();
+require '../koneksi.php';
+
+// Cek apakah user sudah login dan apakah rolenya admin
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
+    // Jika tidak, tendang ke halaman login
+    header("Location: ../admin-login.html");
+    exit();
+}
+
+// Ambil semua data member dari database
+$sql = "SELECT * FROM customers ORDER BY id DESC";
+$result = mysqli_query($koneksi, $sql);
+?>
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -13,19 +29,27 @@
 
     <div class="admin-wrapper">
         <aside class="sidebar">
-            <a href="../index.html" class="logo sidebar-logo">Fit<span>Boss</span></a>
-            <nav class="sidebar-nav">
-                <ul>
-                    <li><a href="dashboard.html">Dashboard</a></li>
-                    <li class="active"><a href="member.html">Manajemen Member</a></li>
-                
-                    <li><a href="schedule.html">Manajemen Jadwal</a></li>
-                </ul>
-            </nav>
-            <div class="sidebar-footer">
-                <a href="../index.html" class="logout-link">Logout</a>
-            </div>
-        </aside>
+    <a href="../index.html" class="logo sidebar-logo">Fit<span>Boss</span></a>
+    <nav class="sidebar-nav">
+        <ul>
+            <li class="<?php echo basename($_SERVER['PHP_SELF']) == 'dashboard.php' ? 'active' : ''; ?>">
+                <a href="dashboard.php">Dashboard</a>
+            </li>
+            <li class="<?php echo basename($_SERVER['PHP_SELF']) == 'member.php' ? 'active' : ''; ?>">
+                <a href="member.php">Manajemen Member</a>
+            </li>
+            <li class="<?php echo basename($_SERVER['PHP_SELF']) == 'schedule.php' ? 'active' : ''; ?>">
+                <a href="schedule.php">Manajemen Jadwal</a>
+            </li>
+            <li class="<?php echo basename($_SERVER['PHP_SELF']) == 'payments.php' ? 'active' : ''; ?>">
+                <a href="payments.php">Konfirmasi Pembayaran</a>
+            </li>
+        </ul>
+    </nav>
+    <div class="sidebar-footer">
+        <a href="../logout.php" class="logout-link">Logout</a>
+    </div>
+</aside>
 
         <main class="main-content">
             <header class="admin-header">
@@ -52,31 +76,26 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>FIT-001</td>
-                            <td>Fitriani Jayus Saputri</td>
-                            <td>fitriani.js@example.com</td>
-                            <td><span class="status active">Aktif</span></td>
-                            <td>21 Oktober 2025</td>
-                            <td><button class="btn btn-sm btn-secondary btn-detail">Lihat Detail</button></td>
-                        </tr>
-                        <tr>
-                            <td>FIT-002</td>
-                            <td>Budi Santoso</td>
-                            <td>budi.s@example.com</td>
-                            <td><span class="status expired">Kedaluwarsa</span></td>
-                            <td>15 Agustus 2025</td>
-                            <td><button class="btn btn-sm btn-secondary btn-detail">Lihat Detail</button></td>
-                        </tr>
-                         <tr>
-                            <td>FIT-003</td>
-                            <td>Citra Lestari</td>
-                            <td>citra.l@example.com</td>
-                            <td><span class="status active">Aktif</span></td>
-                            <td>30 November 2025</td>
-                            <td><button class="btn btn-sm btn-secondary btn-detail">Lihat Detail</button></td>
-                        </tr>
-                        </tbody>
+    <?php
+    // Looping untuk menampilkan setiap baris data member
+    while ($member = mysqli_fetch_assoc($result)) {
+    ?>
+        <tr>
+            <td>FIT-<?php echo $member['id']; ?></td>
+            <td><?php echo htmlspecialchars($member['nama_lengkap']); ?></td>
+            <td><?php echo htmlspecialchars($member['email']); ?></td>
+            <td>
+                <span class="status active">Aktif</span>
+            </td>
+            <td>
+                21 Oktober 2025
+            </td>
+            <td><button class="btn btn-sm btn-secondary btn-detail">Lihat Detail</button></td>
+        </tr>
+    <?php
+    } // Akhir dari loop while
+    ?>
+</tbody>
                 </table>
             </div>
         </main>
@@ -114,10 +133,6 @@
                 <button class="btn btn-secondary">Edit Data</button>
                 <button class="btn btn-danger">Hapus Member</button>
             </div>
-        </div>
-    </div>
-</div>
-</div>
         </div>
     </div>
 </div>
