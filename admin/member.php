@@ -107,7 +107,7 @@ $result = mysqli_query($koneksi, $sql);
                     }
                 ?>
             </td>
-            <td><button class="btn btn-sm btn-secondary btn-detail">Lihat Detail</button></td>
+            <td><button class="btn btn-sm btn-secondary btn-detail" data-id="<?php echo $member['id']; ?>">Lihat Detail</button></td>
         </tr>
     <?php
         } // Akhir dari loop while
@@ -151,19 +151,25 @@ $result = mysqli_query($koneksi, $sql);
             <div class="modal-actions">
                 <button class="btn btn-success">Konfirmasi Pembayaran</button>
                 <button class="btn btn-secondary">Edit Data</button>
-                <button class="btn btn-danger">Hapus Member</button>
+                <a href="#" id="hapus-member-btn" class="btn btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus member ini? Seluruh data membership dan transaksinya juga akan terhapus permanen.');">Hapus Member</a>
             </div>
         </div>
     </div>
    <script>
-    // Script untuk Modal Detail Member di Halaman Admin
     const detailModal = document.getElementById('detail-modal');
-    const detailButtons = document.querySelectorAll('.btn-detail'); // Kita akan gunakan class
+    const detailButtons = document.querySelectorAll('.btn-detail');
     const closeDetailModalBtn = detailModal.querySelector('.close-modal');
     const detailOverlay = detailModal.querySelector('.modal-overlay');
+    const hapusBtn = document.getElementById('hapus-member-btn');
 
-    function openDetailModal() {
+    function openDetailModal(memberId) {
+        // Update link tombol hapus dengan ID member yang benar
+        hapusBtn.href = `proses-hapus-member.php?id=${memberId}`;
+
+        // Tampilkan modal
         detailModal.style.display = 'block';
+
+        // Di sini nanti kita akan tambahkan kode untuk mengisi detail member lainnya
     }
 
     function closeDetailModal() {
@@ -171,12 +177,15 @@ $result = mysqli_query($koneksi, $sql);
     }
 
     detailButtons.forEach(button => {
-        button.addEventListener('click', openDetailModal);
+        button.addEventListener('click', function() {
+            const memberId = this.getAttribute('data-id');
+            openDetailModal(memberId);
+        });
     });
 
     closeDetailModalBtn.addEventListener('click', closeDetailModal);
     detailOverlay.addEventListener('click', closeDetailModal);
-    </script>
+</script>
 
     
 </body>
