@@ -21,7 +21,7 @@
             </header>
 
             <div class="form-card">
-                <form action="#" method="POST">
+                <form action="proses-tambah-jadwal.php" method="POST">
                     <div class="input-group">
                         <label for="hari">Hari</label>
                         <select id="hari" name="hari" required>

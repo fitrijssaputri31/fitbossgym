@@ -22,7 +22,7 @@
                     <p class="status-subtitle">Jadwal kelas baru telah berhasil ditambahkan ke dalam sistem.</p>
                     <div class="status-actions">
                         <a href="admin-add-schedule.html" class="btn btn-secondary">Tambah Data Lagi</a>
-                        <a href="schedule.html" class="btn btn-primary">Kembali ke Daftar Jadwal</a>
+                        <a href="schedule.php" class="btn btn-primary">Kembali ke Daftar Jadwal</a>
                     </div>
                 </div>
             </div>

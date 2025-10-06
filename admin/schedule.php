@@ -1,3 +1,18 @@
+<?php
+session_start();
+require '../koneksi.php';
+
+// Cek keamanan: pastikan hanya admin yang bisa mengakses halaman ini
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
+    header("Location: ../admin-login.html");
+    exit();
+}
+
+// Ambil semua data jadwal dari database, diurutkan berdasarkan hari dan waktu
+$sql = "SELECT * FROM class_schedule ORDER BY FIELD(day_of_week, 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'), class_time";
+$result = mysqli_query($koneksi, $sql);
+?>
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -5,33 +20,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manajemen Jadwal - Admin FitBoss</title>
     <link rel="stylesheet" href="../style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Oswald:wght@700&display=swap" rel="stylesheet">
-</head>
+    </head>
 <body>
 
     <div class="admin-wrapper">
-        <aside class="sidebar">
-    <a href="../index.html" class="logo sidebar-logo">Fit<span>Boss</span></a>
-    <nav class="sidebar-nav">
-        <ul>
-            <li class="<?php echo basename($_SERVER['PHP_SELF']) == 'dashboard.php' ? 'active' : ''; ?>">
-                <a href="dashboard.php">Dashboard</a>
-            </li>
-            <li class="<?php echo basename($_SERVER['PHP_SELF']) == 'member.php' ? 'active' : ''; ?>">
-                <a href="member.php">Manajemen Member</a>
-            </li>
-            <li class="<?php echo basename($_SERVER['PHP_SELF']) == 'schedule.php' ? 'active' : ''; ?>">
-                <a href="schedule.php">Manajemen Jadwal</a>
-            </li>
-            
-        </ul>
-    </nav>
-    <div class="sidebar-footer">
-        <a href="../logout.php" class="logout-link">Logout</a>
-    </div>
-</aside>
+        <?php include 'sidebar.php'; ?>
 
         <main class="main-content">
             <header class="admin-header">
@@ -40,7 +33,7 @@
             </header>
 
             <div class="toolbar">
-                <a href="admin-add-schedule.html" class="btn btn-primary">+ Tambah Jadwal Baru</a>
+                <a href="admin-add-schedule.php" class="btn btn-primary">+ Tambah Jadwal Baru</a>
             </div>
 
             <div class="table-container">
@@ -55,37 +48,30 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Senin</td>
-                            <td>Trampoline</td>
-                            <td>Coach Oom</td>
-                            <td>18:30</td>
-                            <td>
-                                <button class="btn btn-sm btn-secondary">Edit</button>
-                                <button class="btn btn-sm btn-danger">Hapus</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Selasa</td>
-                            <td>Pound Fit</td>
-                            <td>Coach Aina</td>
-                            <td>19:00</td>
-                            <td>
-                                <button class="btn btn-sm btn-secondary">Edit</button>
-                                <button class="btn btn-sm btn-danger">Hapus</button>
-                            </td>
-                        </tr>
-                         <tr>
-                            <td>Kamis</td>
-                            <td>Zumba</td>
-                            <td>Zin Devi</td>
-                            <td>18:30</td>
-                            <td>
-                                <button class="btn btn-sm btn-secondary">Edit</button>
-                                <button class="btn btn-sm btn-danger">Hapus</button>
-                            </td>
-                        </tr>
-                        </tbody>
+                        <?php
+                        // Cek apakah ada data yang ditemukan
+                        if (mysqli_num_rows($result) > 0) {
+                            // Looping untuk menampilkan setiap baris data
+                            while ($schedule = mysqli_fetch_assoc($result)) {
+                        ?>
+                            <tr>
+                                <td><?php echo htmlspecialchars($schedule['day_of_week']); ?></td>
+                                <td><?php echo htmlspecialchars($schedule['class_name']); ?></td>
+                                <td><?php echo htmlspecialchars($schedule['coach_name']); ?></td>
+                                <td><?php echo date('H:i', strtotime($schedule['class_time'])); ?></td>
+                                <td>
+                                    <a href="admin-edit-schedule.php?id=<?php echo $schedule['id']; ?>" class="btn btn-sm btn-secondary">Edit</a>
+                                    <a href="proses-hapus-jadwal.php?id=<?php echo $schedule['id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus jadwal ini?');">Hapus</a>
+                                </td>
+                            </tr>
+                        <?php
+                            } // Akhir dari loop while
+                        } else {
+                            // Tampilkan pesan jika tabel kosong
+                            echo "<tr><td colspan='5' style='text-align:center;'>Belum ada jadwal kelas yang ditambahkan.</td></tr>";
+                        }
+                        ?>
+                    </tbody>
                 </table>
             </div>
         </main>

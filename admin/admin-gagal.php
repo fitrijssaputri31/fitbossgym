@@ -21,8 +21,7 @@
                     <h2 class="status-title">Terjadi Kesalahan!</h2>
                     <p class="status-subtitle">Data gagal disimpan karena terjadi kesalahan. Silakan periksa kembali data yang Anda masukkan.</p>
                     <div class="status-actions">
-                        <a href="admin-add-schedule.html" class="btn btn-primary">Kembali ke Formulir</a>
-                    </div>
+                        <a href="schedule.php" class="btn btn-primary">Kembali ke Daftar Jadwal</a>
                 </div>
             </div>
         </main>
