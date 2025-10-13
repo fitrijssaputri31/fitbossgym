@@ -1,5 +1,5 @@
 <aside class="sidebar">
-    <a href="../index.html" class="logo sidebar-logo">Fit<span>Boss</span></a>
+    <a href="../index.php" class="logo sidebar-logo">Fit<span>Boss</span></a>
     <nav class="sidebar-nav">
         <ul>
             <li class="<?php echo basename($_SERVER['PHP_SELF']) == 'dashboard.php' ? 'active' : ''; ?>">

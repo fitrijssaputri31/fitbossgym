@@ -12,7 +12,7 @@ if (isset($_GET['id'])) {
     $id_member = $_GET['id'];
 
     // Siapkan perintah SQL DELETE
-    $sql = "DELETE FROM customers WHERE id = ? AND role = 'member'";
+    $sql = "DELETE FROM users WHERE id = ? AND role = 'member'";
     $stmt = mysqli_prepare($koneksi, $sql);
     mysqli_stmt_bind_param($stmt, "i", $id_member);
 

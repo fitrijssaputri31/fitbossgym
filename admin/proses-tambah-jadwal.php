@@ -16,9 +16,10 @@ $waktu = $_POST['waktu'];
 // Validasi sederhana
 if (empty($hari) || empty($nama_kelas) || empty($nama_coach) || empty($waktu)) {
     // Arahkan ke halaman gagal jika ada yang kosong
-    header("Location: admin-gagal.php");
+    header("Location: schedule.php");
     exit();
 }
+
 
 // Siapkan perintah SQL untuk menyimpan data
 $sql = "INSERT INTO class_schedule (day_of_week, class_name, coach_name, class_time) VALUES (?, ?, ?, ?)";

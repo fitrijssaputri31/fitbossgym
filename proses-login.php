@@ -16,26 +16,26 @@ if (empty($email) || empty($password)) {
     exit();
 }
 
-// Siapkan query untuk mencari customer berdasarkan email
-$sql = "SELECT * FROM customers WHERE email = ?";
+// Siapkan query untuk mencari user berdasarkan email
+$sql = "SELECT * FROM users WHERE email = ?";
 $stmt = mysqli_prepare($koneksi, $sql);
 mysqli_stmt_bind_param($stmt, "s", $email);
 mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
 
-// Cek apakah customer ditemukan dan verifikasi password
-if ($customer = mysqli_fetch_assoc($result)) {
-    // Customer dengan email tersebut ditemukan, sekarang verifikasi passwordnya
-    if (password_verify($password, $customer['password'])) {
+// Cek apakah user ditemukan dan verifikasi password
+if ($user = mysqli_fetch_assoc($result)) {
+    // user dengan email tersebut ditemukan, sekarang verifikasi passwordnya
+    if (password_verify($password, $user['password'])) {
         // Jika password cocok
         
-        // Simpan informasi penting customer ke dalam session
-        $_SESSION['customer_id'] = $customer['id'];
-        $_SESSION['nama_lengkap'] = $customer['nama_lengkap'];
-        $_SESSION['role'] = $customer['role']; // <-- SIMPAN PERAN (ROLE) KE SESSION
+        // Simpan informasi penting user ke dalam session
+        $_SESSION['user_id'] = $user['id'];
+        $_SESSION['nama_lengkap'] = $user['nama_lengkap'];
+        $_SESSION['role'] = $user['role']; // <-- SIMPAN PERAN (ROLE) KE SESSION
         
         // **LOGIKA PENGALIHAN BERDASARKAN PERAN (ROLE)**
-        if ($customer['role'] == 'admin') {
+        if ($user['role'] == 'admin') {
             // Jika perannya admin, arahkan ke dashboard admin
             header("Location: admin/dashboard.php");
         } else {

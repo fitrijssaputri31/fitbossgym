@@ -9,7 +9,7 @@ session_unset();
 session_destroy();
 
 // 3. Arahkan pengguna kembali ke halaman utama
-header("Location: index.html");
+header("Location: index.php");
 exit();
 
 ?>

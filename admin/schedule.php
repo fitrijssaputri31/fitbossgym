@@ -1,12 +1,20 @@
 <?php
 session_start();
+
+// Panggil file koneksi di sini
 require '../koneksi.php';
 
-// Cek keamanan: pastikan hanya admin yang bisa mengakses halaman ini
+// Cek apakah pengguna sudah login DAN apakah perannya adalah admin
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
-    header("Location: ../admin-login.html");
+    // Jika tidak, hancurkan session yang mungkin "rusak" dan arahkan ke halaman login admin
+    session_unset();
+    session_destroy();
+    header("Location: ../admin-login.php");
     exit();
 }
+
+// Selanjutnya adalah kode spesifik untuk setiap halaman...
+
 
 // Ambil semua data jadwal dari database, diurutkan berdasarkan hari dan waktu
 $sql = "SELECT * FROM class_schedule ORDER BY FIELD(day_of_week, 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'), class_time";

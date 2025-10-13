@@ -1,3 +1,14 @@
+<?php
+require 'koneksi.php';
+
+// Ambil data jadwal kelas
+$sql_schedule = "SELECT * FROM class_schedule ORDER BY FIELD(day_of_week, 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu')";
+$result_schedule = mysqli_query($koneksi, $sql_schedule);
+
+// Ambil data testimoni
+$sql_testimonials = "SELECT * FROM testimonials LIMIT 2"; // Batasi hanya 2 testimoni
+$result_testimonials = mysqli_query($koneksi, $sql_testimonials);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -50,7 +61,7 @@
                             <li>✅ Locker & Shower Room</li>
                             <li>✅ Initial Equipment Guidance</li>
                         </ul>
-                        <a href="/register.html" class="btn btn-primary">Choose Package</a>
+                        <a href="register.html?plan=Gym+Membership" class="btn btn-primary">Choose Package</a>
                     </div>
                     <div class="paket-card featured">
                         <span class="badge">Most Popular</span>
@@ -61,7 +72,7 @@
                             <li>✅ Access to All Classes</li>
                             <li>✅ Online Class Booking System</li>
                         </ul>
-                        <a href="/register.html" class="btn btn-primary">Choose Package</a>
+                        <a href="register.html?plan=Gym+%2B+Class" class="btn btn-primary">Choose Package</a>
                     </div>
                     <div class="paket-card">
                         <h3>Private Coach</h3>
@@ -81,25 +92,15 @@
             <div class="container">
                 <h2 class="section-title">Weekly Class Schedule</h2>
                 <div class="jadwal-grid">
-                    <div class="jadwal-card" style="background-image: url('images/class-trampoline.jpg');">
-                        <div class="info"><h3>MONDAY</h3><p>Trampoline - Coach Oom</p></div>
-                    </div>
-                    <div class="jadwal-card" style="background-image: url('images/class-poundfit.jpg');">
-                        <div class="info"><h3>TUESDAY</h3><p>Pound Fit - Coach Aina</p></div>
-                    </div>
-                    <div class="jadwal-card" style="background-image: url('images/class-dance.jpg');">
-                        <div class="info"><h3>WEDNESDAY</h3><p>Dance - Coach Dinda</p></div>
-                    </div>
-                    <div class="jadwal-card" style="background-image: url('images/class-zumba.jpg');">
-                        <div class="info"><h3>THURSDAY</h3><p>Zumba - Zin Devi</p></div>
-                    </div>
-                    <div class="jadwal-card" style="background-image: url('images/class-hiit.jpg');">
-                        <div class="info"><h3>FRIDAY</h3><p>HIIT - Coach Eka & Anton</p></div>
-                    </div>
-                    <div class="jadwal-card" style="background-image: url('images/class-step.jpg');">
-                        <div class="info"><h3>SATURDAY</h3><p>Power Step - Coach Oom</p></div>
-                    </div>
-                </div>
+    <?php while ($schedule = mysqli_fetch_assoc($result_schedule)) { ?>
+        <div class="jadwal-card" style="background-image: url('images/<?php echo htmlspecialchars($schedule['class_image_url']); ?>');">
+            <div class="info">
+                <h3><?php echo strtoupper(htmlspecialchars($schedule['day_of_week'])); ?></h3>
+                <p><?php echo htmlspecialchars($schedule['class_name']); ?> - <?php echo htmlspecialchars($schedule['coach_name']); ?></p>
+            </div>
+        </div>
+    <?php } ?>
+</div>
             </div>
         </section>
 
@@ -142,21 +143,15 @@
 </section>
 
         <section id="testimoni" class="section">
-            <div class="container">
-                <h2 class="section-title">Our Member Success Stories</h2>
-                <div class="testimoni-container">
-                    <div class="testimoni-card">
-                        <img src="images/member1.jpg" alt="Foto Member 1" class="profile-pic">
-                        <p class="quote">"Amazing results! In 3 months with Coach Joe, I lost 10 kg and feel healthier than ever. The program was perfectly tailored for me."</p>
-                        <p class="author">- Lulu, Private Member</p>
-                    </div>
-                    <div class="testimoni-card">
-                        <img src="images/member2.jpg" alt="Foto Member 2" class="profile-pic">
-                        <p class="quote">"I have been a gym + class member at FitBoss for 2 years, it is very enjoyable to be able to gym and take cardio classes here, the place is comfortable and clean"</p>
-                        <p class="author">- Fitri, Gym + Class</p>
-                    </div>
-                </div>
-            </div>
+            <div class="testimoni-container">
+    <?php while ($testimonial = mysqli_fetch_assoc($result_testimonials)) { ?>
+        <div class="testimoni-card">
+            <img src="images/<?php echo htmlspecialchars($testimonial['member_photo_url']); ?>" alt="Foto Member" class="profile-pic">
+            <p class="quote">"<?php echo htmlspecialchars($testimonial['testimonial_text']); ?>"</p>
+            <p class="author">- <?php echo htmlspecialchars($testimonial['member_name']); ?>, <?php echo htmlspecialchars($testimonial['member_type']); ?></p>
+        </div>
+    <?php } ?>
+</div>
         </section>
     </main>
 
@@ -200,41 +195,43 @@
     </div>
 
     <script>
-  const modal = document.getElementById('coach-modal');
-  const openModalBtn = document.getElementById('view-coaches-btn');
-  const closeModalBtn = document.querySelector('.close-modal');
-  const overlay = document.querySelector('.modal-overlay');
+      // Script untuk membuka dan menutup modal
+      const modal = document.getElementById('coach-modal');
+      const openModalBtn = document.getElementById('view-coaches-btn');
+      const closeModalBtn = document.querySelector('.close-modal');
+      const overlay = document.querySelector('.modal-overlay');
 
-  function openModal(e) {
-    if (e) e.preventDefault();  
-    modal.style.display = 'block';
-    document.body.style.overflow = 'hidden'; 
-  }
-  function closeModal() {
-    modal.style.display = 'none';
-    document.body.style.overflow = '';
-  }
+      function openModal(e) {
+        if (e) e.preventDefault();  
+        modal.style.display = 'block';
+        document.body.style.overflow = 'hidden'; 
+      }
+      function closeModal() {
+        modal.style.display = 'none';
+        document.body.style.overflow = '';
+      }
 
-  openModalBtn.addEventListener('click', openModal);
-  closeModalBtn.addEventListener('click', closeModal);
-  overlay.addEventListener('click', closeModal);
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape' && modal.style.display === 'block') closeModal();
-  });
-</script>
-<script>
-  document.querySelector('.coach-container-modal')
-    .addEventListener('click', (e) => {
-      const a = e.target.closest('a.btn');
-      if (!a) return;
-      e.preventDefault();
-      const name = a.textContent.trim().replace('Choose ',''); // "Coach Joe"
-      const url = new URL('register.html', location.href);
-      url.searchParams.set('plan', 'private');
-      url.searchParams.set('coach', name);
-      location.href = url.toString();
-    });
-</script>
+      openModalBtn.addEventListener('click', openModal);
+      closeModalBtn.addEventListener('click', closeModal);
+      overlay.addEventListener('click', closeModal);
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && modal.style.display === 'block') closeModal();
+      });
+    </script>
+    <script>
+      // Script untuk tombol "Choose Coach" di dalam modal
+      document.querySelector('.coach-container-modal')
+        .addEventListener('click', (e) => {
+          const a = e.target.closest('a.btn');
+          if (!a) return;
+          e.preventDefault();
+          const name = a.textContent.trim().replace('Choose ',''); // "Coach Joe"
+          const url = new URL('register.html', location.href);
+          url.searchParams.set('plan', 'private');
+          url.searchParams.set('coach', name);
+          location.href = url.toString();
+        });
+    </script>
 
 
 

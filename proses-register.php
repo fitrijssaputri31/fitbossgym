@@ -21,7 +21,7 @@ if (empty($nama_lengkap) || empty($email) || empty($nomor_telepon) || empty($pas
 $password_hashed = password_hash($password, PASSWORD_DEFAULT);
 
 // 5. Menyiapkan dan Menjalankan Perintah SQL
-$sql = "INSERT INTO customers (nama_lengkap, email, nomor_telepon, password) VALUES (?, ?, ?, ?)";
+$sql = "INSERT INTO users (nama_lengkap, email, nomor_telepon, password) VALUES (?, ?, ?, ?)";
 $stmt = mysqli_prepare($koneksi, $sql);
 mysqli_stmt_bind_param($stmt, "ssss", $nama_lengkap, $email, $nomor_telepon, $password_hashed);
 
